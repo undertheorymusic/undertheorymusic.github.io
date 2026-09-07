@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Under Theory - Official Links</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- RESET & BASIC STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            background-color: #030108;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px;
+        }
+
+        /* --- PARTICLES CANVAS --- */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* --- WINDOWS 7 AERO GLASS CONTAINER --- */
+        .win7-window {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 460px;
+            background: linear-gradient(135deg, rgba(40, 10, 65, 0.55) 0%, rgba(10, 3, 20, 0.75) 100%);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border-radius: 8px;
+            border: 1px solid rgba(186, 104, 200, 0.4);
+            box-shadow: 
+                0 0 25px rgba(138, 43, 226, 0.3),
+                0 15px 35px rgba(0, 0, 0, 0.8),
+                inset 0 1px 1px rgba(255, 255, 255, 0.4);
+            overflow: hidden;
+        }
+
+        /* --- WINDOWS 7 TITLE BAR --- */
+        .win7-titlebar {
+            height: 32px;
+            background: linear-gradient(
+                to bottom, 
+                rgba(140, 50, 210, 0.6) 0%, 
+                rgba(70, 15, 110, 0.4) 50%, 
+                rgba(25, 5, 45, 0.7) 51%, 
+                rgba(80, 20, 120, 0.5) 100%
+            );
+            border-bottom: 1px solid rgba(186, 104, 200, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 8px 0 12px;
+        }
+
+        .win7-title {
+            color: #f0e6ff;
+            font-size: 13px;
+            font-weight: 600;
+            text-shadow: 0 0 8px rgba(186, 104, 200, 0.8), 0 1px 2px #000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Win7 Control Buttons */
+        .win7-controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .win7-btn {
+            width: 28px;
+            height: 18px;
+            border-radius: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(0,0,0,0.3));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 9px;
+            cursor: pointer;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+
+        .win7-btn:hover {
+            background: linear-gradient(to bottom, rgba(200,130,255,0.4), rgba(80,20,120,0.6));
+        }
+
+        .win7-btn.close:hover {
+            background: linear-gradient(to bottom, #ff6b6b, #c0392b);
+            border-color: #ff4d4d;
+        }
+
+        /* --- WINDOW CONTENT BODY --- */
+        .win7-body {
+            padding: 24px;
+            color: #ffffff;
+        }
+
+        /* Profile Section */
+        .profile-container {
+            text-align: center;
+            margin-bottom: 22px;
+        }
+
+        .profile-pic-frame {
+            width: 105px;
+            height: 105px;
+            margin: 0 auto 12px auto;
+            padding: 4px;
+            background: linear-gradient(135deg, rgba(186, 104, 200, 0.6), rgba(20, 5, 35, 0.8));
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(147, 51, 234, 0.5), inset 0 0 5px rgba(255,255,255,0.5);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .artist-name {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.8);
+        }
+
+        .artist-subtitle {
+            font-size: 12px;
+            color: #c0a8e0;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Section Titles */
+        .section-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #a78bfa;
+            margin: 18px 0 10px 4px;
+            font-weight: 600;
+            text-shadow: 0 1px 2px #000;
+        }
+
+        /* --- WIN 7 GLASS BUTTONS (STREAMS) --- */
+        .stream-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .glass-btn {
+            display: flex;
+            align-items: center;
+            padding: 11px 16px;
+            text-decoration: none;
+            color: #f3e8ff;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 5px;
+            background: linear-gradient(
+                to bottom, 
+                rgba(255, 255, 255, 0.12) 0%, 
+                rgba(255, 255, 255, 0.03) 50%, 
+                rgba(0, 0, 0, 0.25) 51%, 
+                rgba(120, 40, 180, 0.15) 100%
+            );
+            border: 1px solid rgba(192, 132, 252, 0.3);
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.25),
+                0 2px 5px rgba(0, 0, 0, 0.4);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .glass-btn i {
+            font-size: 18px;
+            width: 28px;
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        /* Windows 7 Hover Glow */
+        .glass-btn:hover {
+            background: linear-gradient(
+                to bottom, 
+                rgba(216, 180, 254, 0.3) 0%, 
+                rgba(168, 85, 247, 0.2) 50%, 
+                rgba(88, 28, 135, 0.4) 51%, 
+                rgba(147, 51, 234, 0.3) 100%
+            );
+            border-color: rgba(233, 213, 255, 0.6);
+            box-shadow: 
+                0 0 12px rgba(168, 85, 247, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .glass-btn:active {
+            transform: translateY(1px);
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.6);
+        }
+
+        /* Accent Icon Colors */
+        .fa-spotify { color: #1db954; }
+        .fa-apple { color: #fa243c; }
+        .fa-youtube { color: #ff0000; }
+        .fa-amazon { color: #ff9900; }
+        .fa-deezer { color: #a238ff; }
+
+        /* --- SOCIAL MEDIA GRID --- */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .social-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 0;
+            color: #e9d5ff;
+            text-decoration: none;
+            border-radius: 6px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.08), rgba(0,0,0,0.3));
+            border: 1px solid rgba(168, 85, 247, 0.25);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .social-btn i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .social-btn span {
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .social-btn:hover {
+            background: linear-gradient(to bottom, rgba(168, 85, 247, 0.3), rgba(58, 12, 90, 0.5));
+            border-color: rgba(216, 180, 254, 0.5);
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* --- WIN 7 STATUS BAR --- */
+        .win7-statusbar {
+            padding: 6px 12px;
+            background: rgba(10, 3, 20, 0.8);
+            border-top: 1px solid rgba(186, 104, 200, 0.2);
+            font-size: 11px;
+            color: #a78bfa;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            background-color: #a855f7;
+            border-radius: 50%;
+            box-shadow: 0 0 6px #a855f7;
+            margin-right: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animated Particles Background Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Windows 7 GUI Window Container -->
+    <div class="win7-window">
+        
+        <!-- Window Title Bar -->
+        <div class="win7-titlebar">
+            <div class="win7-title">
+                <i class="fa-solid fa-compact-disc"></i> Under Theory - Official Links
+            </div>
+            <div class="win7-controls">
+                <div class="win7-btn"><i class="fa-solid fa-minus"></i></div>
+                <div class="win7-btn"><i class="fa-regular fa-square"></i></div>
+                <div class="win7-btn close"><i class="fa-solid fa-xmark"></i></div>
+            </div>
+        </div>
+
+        <!-- Window Body Content -->
+        <div class="win7-body">
+            
+            <!-- Profile Info -->
+            <div class="profile-container">
+                <div class="profile-pic-frame">
+                    <img src="profile.jpg" alt="Under Theory" class="profile-pic">
+                </div>
+                <div class="artist-name">UNDER THEORY</div>
+                <div class="artist-subtitle">Official Music & Media</div>
+            </div>
+
+            <!-- Music Links Section -->
+            <div class="section-label">Music Streaming</div>
+            <div class="stream-links">
+                
+                <a href="https://open.spotify.com/artist/1AujrTfyIKYhlSeOqR4ird" 
+                   data-app-url="spotify:artist:1AujrTfyIKYhlSeOqR4ird" 
+                   target="_blank" class="glass-btn app-link">
+                    <i class="fa-brands fa-spotify"></i> Spotify
+                </a>
+
+                <a href="https://music.apple.com/us/artist/under-theory/6795514773" 
+                   data-app-url="music://music.apple.com/us/artist/under-theory/6795514773" 
+                   target="_blank" class="glass-btn app-link">
+                    <i class="fa-brands fa-apple"></i> Apple Music
+                </a>
+
+                <a href="https://music.youtube.com/@UnderTheory-Official" 
+                   data-app-url="youtubemusic://music.youtube.com/@UnderTheory-Official" 
+                   target="_blank" class="glass-btn app-link">
+                    <i class="fa-brands fa-youtube"></i> YouTube Music
+                </a>
+
+                <a href="https://music.amazon.com/artists/B0HC2QXYHW" 
+                   data-app-url="amzn://music.amazon.com/artists/B0HC2QXYHW" 
+                   target="_blank" class="glass-btn app-link">
+                    <i class="fa-brands fa-amazon"></i> Amazon Music
+                </a>
+
+                <a href="https://www.deezer.com/en/artist/406796162" 
+                   data-app-url="deezer://www.deezer.com/artist/406796162" 
+                   target="_blank" class="glass-btn app-link">
+                    <i class="fa-brands fa-deezer"></i> Deezer
+                </a>
+
+            </div>
+
+            <!-- Social Media Section -->
+            <div class="section-label">Social Connections</div>
+            <div class="social-grid">
+                
+                <a href="https://www.facebook.com/undertheoryid/" 
+                   data-app-url="fb://facewebmodal/f?href=https://www.facebook.com/undertheoryid/" 
+                   target="_blank" class="social-btn app-link">
+                    <i class="fa-brands fa-facebook"></i>
+                    <span>Facebook</span>
+                </a>
+
+                <a href="https://www.instagram.com/undertheory_official/" 
+                   data-app-url="instagram://user?username=undertheory_official" 
+                   target="_blank" class="social-btn app-link">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+
+                <a href="https://www.tiktok.com/@undertheory_official" 
+                   data-app-url="snssdk1128://user/profile/undertheory_official" 
+                   target="_blank" class="social-btn app-link">
+                    <i class="fa-brands fa-tiktok"></i>
+                    <span>TikTok</span>
+                </a>
+
+                <a href="https://x.com/UnderTheory_" 
+                   data-app-url="twitter://user?screen_name=UnderTheory_" 
+                   target="_blank" class="social-btn app-link">
+                    <i class="fa-brands fa-x-twitter"></i>
+                    <span>X</span>
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- Window Status Bar -->
+        <div class="win7-statusbar">
+            <span><span class="status-dot"></span> System Ready</span>
+            <span>Aero Purple v1.0</span>
+        </div>
+
+    </div>
+
+    <!-- MOBILE APP DEEP-LINKING ROUTER SCRIPT -->
+    <script>
+        document.querySelectorAll('.app-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+                const appUrl = this.getAttribute('data-app-url');
+                const webUrl = this.getAttribute('href');
+
+                if (isMobile && appUrl) {
+                    e.preventDefault();
+                    
+                    const now = Date.now();
+                    // Attempt to launch native mobile application via app URI scheme
+                    window.location.href = appUrl;
+
+                    // Fallback to standard web link if app isn't installed
+                    setTimeout(() => {
+                        if (Date.now() - now < 1500) {
+                            window.open(webUrl, '_blank');
+                        }
+                    }, 500);
+                }
+            });
+        });
+    </script>
+
+    <!-- BACKGROUND ANIMATED PARTICLES SCRIPT -->
+    <script>
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particlesArray = [];
+        const numberOfParticles = 65;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedY = Math.random() * -0.8 - 0.2;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.opacity = Math.random() * 0.6 + 0.2;
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+
+                if (this.y < 0) {
+                    this.y = canvas.height;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(168, 85, 247, ${this.opacity})`;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = "#a855f7";
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particlesArray.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+    </script>
+</body>
+</html>
