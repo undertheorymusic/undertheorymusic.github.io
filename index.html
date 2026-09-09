@@ -114,6 +114,12 @@
             width: 110px;
             height: 110px;
             margin: 0 auto 16px auto;
+            cursor: pointer; /* Menandakan bisa diklik */
+            transition: transform 0.2s ease;
+        }
+
+        .profile-img-wrapper:active {
+            transform: scale(0.95);
         }
 
         .profile-img {
@@ -123,6 +129,11 @@
             object-fit: cover;
             border: 2px solid var(--violet-glow);
             box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .profile-img-wrapper:hover .profile-img {
+            box-shadow: 0 0 30px var(--violet-bright);
         }
 
         .artist-name {
@@ -217,7 +228,6 @@
             display: flex;
             gap: 16px;
             justify-content: center;
-            margin-bottom: 20px;
         }
 
         .social-btn {
@@ -253,28 +263,6 @@
             color: #ffffff !important;
         }
 
-        /* Dashboard Link Footer */
-        .dashboard-link-wrapper {
-            text-align: center;
-            border-top: 1px solid var(--violet-border);
-            padding-top: 15px;
-            width: 100%;
-        }
-
-        .dashboard-link {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: color 0.2s;
-        }
-
-        .dashboard-link:hover {
-            color: var(--violet-bright);
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
@@ -302,7 +290,8 @@
 
         <div class="terminal-body">
             <div class="profile-container">
-                <div class="profile-img-wrapper">
+                <!-- Secret Trigger: Klik foto profil 5 kali dengan cepat -->
+                <div class="profile-img-wrapper" id="secretTrigger" title="Access Terminal">
                     <img src="profile.jpg" alt="Under Theory" class="profile-img" onerror="this.src='https://via.placeholder.com/110'">
                 </div>
                 <h1 class="artist-name">Under Theory</h1>
@@ -341,27 +330,45 @@
                 <a href="https://www.tiktok.com/@undertheory_official" target="_blank" rel="noopener noreferrer" class="social-btn" data-platform="TikTok" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                 <a href="https://www.facebook.com/undertheoryid/" target="_blank" rel="noopener noreferrer" class="social-btn" data-platform="Facebook" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
             </div>
-
-            <div class="dashboard-link-wrapper">
-                <a href="dashboard.html" target="_blank" class="dashboard-link">
-                    <i class="fa-solid fa-chart-line"></i> Open Analytics Dashboard &gt;&gt;
-                </a>
-            </div>
         </div>
     </div>
 
     <script>
+        // --- SECRET SHORTCUT: 5x CLICK PROFILE IMAGE ---
+        let clickCount = 0;
+        let clickTimer = null;
+        const secretTrigger = document.getElementById('secretTrigger');
+
+        secretTrigger.addEventListener('click', () => {
+            clickCount++;
+            
+            // Reset timer jika jeda antar klik terlalu lama (> 800ms)
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => {
+                clickCount = 0;
+            }, 800);
+
+            // Jika berhasil diklik 5 kali dalam rentang waktu tersebut
+            if (clickCount === 5) {
+                clickCount = 0;
+                // Efek visual kecil (berkedip terang)
+                secretTrigger.style.filter = "drop-shadow(0 0 15px #4ade80)";
+                setTimeout(() => {
+                    secretTrigger.style.filter = "none";
+                    // Buka halaman dashboard di tab baru
+                    window.open('dashboard.html', '_blank');
+                }, 300);
+            }
+        });
+
         // --- REAL-TIME TRACKING LOGGER ---
         const allInteractiveLinks = document.querySelectorAll('.stream-link, .social-btn');
 
         allInteractiveLinks.forEach(link => {
             link.addEventListener('click', function() {
                 const platformName = this.getAttribute('data-platform');
-                
-                // Ambil log sebelumnya dari localStorage atau buat array baru
                 let analyticsLogs = JSON.parse(localStorage.getItem('ut_analytics_logs')) || [];
                 
-                // Tambahkan log baru
                 let newLog = {
                     time: new Date().toLocaleTimeString(),
                     platform: platformName,
@@ -370,15 +377,11 @@
                     status: "200 OK (Redirect)"
                 };
 
-                analyticsLogs.unshift(newLog); // Taruh di urutan paling atas
-                
-                // Batasi maksimal 50 log terakhir agar memori browser tidak penuh
+                analyticsLogs.unshift(newLog);
                 if (analyticsLogs.length > 50) analyticsLogs.pop();
 
-                // Simpan kembali
                 localStorage.setItem('ut_analytics_logs', JSON.stringify(analyticsLogs));
                 
-                // Tambah counter total klik
                 let totalClicks = parseInt(localStorage.getItem('ut_total_clicks') || '1420') + 1;
                 localStorage.setItem('ut_total_clicks', totalClicks);
             });
