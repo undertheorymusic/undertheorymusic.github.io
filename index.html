@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     
     <style>
+        /* CSS Variables & Theme Setup */
         :root {
             --bg-dark: #05020a;
             --violet-deep: #120326;
@@ -41,6 +42,7 @@
             padding: 20px 10px;
         }
 
+        /* Animated Canvas Background */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -51,6 +53,7 @@
             pointer-events: none;
         }
 
+        /* Linux Terminal Container */
         .terminal-window {
             position: relative;
             z-index: 1;
@@ -65,6 +68,7 @@
             animation: fadeIn 0.8s ease-out;
         }
 
+        /* Terminal Window Bar */
         .terminal-header {
             background: var(--term-header);
             padding: 12px 16px;
@@ -93,9 +97,10 @@
             font-size: 0.8rem;
             color: var(--text-muted);
             letter-spacing: 0.5px;
-            padding-right: 48px;
+            padding-right: 48px; /* Optical centering compensation */
         }
 
+        /* Terminal Body */
         .terminal-body {
             padding: 28px 24px;
             display: flex;
@@ -103,6 +108,7 @@
             align-items: center;
         }
 
+        /* Profile Section */
         .profile-container {
             text-align: center;
             margin-bottom: 24px;
@@ -114,12 +120,6 @@
             width: 110px;
             height: 110px;
             margin: 0 auto 16px auto;
-            cursor: pointer; /* Menandakan bisa diklik */
-            transition: transform 0.2s ease;
-        }
-
-        .profile-img-wrapper:active {
-            transform: scale(0.95);
         }
 
         .profile-img {
@@ -129,11 +129,6 @@
             object-fit: cover;
             border: 2px solid var(--violet-glow);
             box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
-            transition: box-shadow 0.3s ease;
-        }
-
-        .profile-img-wrapper:hover .profile-img {
-            box-shadow: 0 0 30px var(--violet-bright);
         }
 
         .artist-name {
@@ -164,12 +159,13 @@
             animation: blink 1s infinite;
         }
 
+        /* Streaming Links */
         .links-container {
             width: 100%;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
 
         .stream-link {
@@ -216,6 +212,7 @@
             border: 1px solid rgba(199, 125, 255, 0.2);
         }
 
+        /* Circular Social Media Buttons */
         .socials-header {
             font-size: 0.75rem;
             text-transform: uppercase;
@@ -253,6 +250,7 @@
             border-color: var(--violet-bright);
         }
 
+        /* Specific Brand Icon Colors on Hover */
         .fa-spotify { color: #1DB954; }
         .fa-apple { color: #FA243C; }
         .fa-deezer { color: #A238FF; }
@@ -263,6 +261,7 @@
             color: #ffffff !important;
         }
 
+        /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
@@ -276,9 +275,13 @@
 </head>
 <body>
 
+    <!-- Particle Background -->
     <canvas id="particle-canvas"></canvas>
 
+    <!-- Linux Terminal UI Container -->
     <div class="terminal-window">
+        
+        <!-- Terminal Title Bar -->
         <div class="terminal-header">
             <div class="window-controls">
                 <span class="control-btn btn-close"></span>
@@ -288,11 +291,14 @@
             <div class="terminal-title">undertheory@archlinux:~</div>
         </div>
 
+        <!-- Terminal Content -->
         <div class="terminal-body">
+            
+            <!-- Profile Section -->
             <div class="profile-container">
-                <!-- Secret Trigger: Klik foto profil 5 kali dengan cepat -->
-                <div class="profile-img-wrapper" id="secretTrigger" title="Access Terminal">
-                    <img src="profile.jpg" alt="Under Theory" class="profile-img" onerror="this.src='https://via.placeholder.com/110'">
+                <div class="profile-img-wrapper">
+                    <!-- Make sure profile.jpg is in the same folder -->
+                    <img src="profile.jpg" alt="Under Theory" class="profile-img">
                 </div>
                 <h1 class="artist-name">Under Theory</h1>
                 <div class="command-prompt">
@@ -300,102 +306,84 @@
                 </div>
             </div>
 
+            <!-- Music Streaming Links -->
             <div class="links-container">
-                <a href="https://open.spotify.com/artist/1AujrTfyIKYhlSeOqR4ird" target="_blank" rel="noopener noreferrer" class="stream-link" data-platform="Spotify">
-                    <div class="platform-info"><i class="fa-brands fa-spotify"></i><span>Spotify</span></div>
+                
+                <a href="https://open.spotify.com/artist/1AujrTfyIKYhlSeOqR4ird" target="_blank" rel="noopener noreferrer" class="stream-link">
+                    <div class="platform-info">
+                        <i class="fa-brands fa-spotify"></i>
+                        <span>Spotify</span>
+                    </div>
                     <span class="action-tag">Listen</span>
                 </a>
-                <a href="https://music.apple.com/us/artist/under-theory/6795514773" target="_blank" rel="noopener noreferrer" class="stream-link" data-platform="Apple Music">
-                    <div class="platform-info"><i class="fa-brands fa-apple"></i><span>Apple Music</span></div>
+
+                <a href="https://music.apple.com/us/artist/under-theory/6795514773" target="_blank" rel="noopener noreferrer" class="stream-link">
+                    <div class="platform-info">
+                        <i class="fa-brands fa-apple"></i>
+                        <span>Apple Music</span>
+                    </div>
                     <span class="action-tag">Listen</span>
                 </a>
-                <a href="https://music.youtube.com/@UnderTheory-Official" target="_blank" rel="noopener noreferrer" class="stream-link" data-platform="YouTube Music">
-                    <div class="platform-info"><i class="fa-brands fa-youtube"></i><span>YouTube Music</span></div>
+
+                <a href="https://music.youtube.com/@UnderTheory-Official" target="_blank" rel="noopener noreferrer" class="stream-link">
+                    <div class="platform-info">
+                        <i class="fa-brands fa-youtube"></i>
+                        <span>YouTube Music</span>
+                    </div>
                     <span class="action-tag">Listen</span>
                 </a>
-                <a href="https://www.deezer.com/en/artist/406796162" target="_blank" rel="noopener noreferrer" class="stream-link" data-platform="Deezer">
-                    <div class="platform-info"><i class="fa-brands fa-deezer"></i><span>Deezer</span></div>
+
+                <a href="https://www.deezer.com/en/artist/406796162" target="_blank" rel="noopener noreferrer" class="stream-link">
+                    <div class="platform-info">
+                        <i class="fa-brands fa-deezer"></i>
+                        <span>Deezer</span>
+                    </div>
                     <span class="action-tag">Listen</span>
                 </a>
-                <a href="https://music.amazon.com/artists/B0HC2QXYHW" target="_blank" rel="noopener noreferrer" class="stream-link" data-platform="Amazon Music">
-                    <div class="platform-info"><i class="fa-brands fa-amazon"></i><span>Amazon Music</span></div>
+
+                <a href="https://music.amazon.com/artists/B0HC2QXYHW?ref=AM4APC_AR_P_en_US_B0HC2QXYHW_i3Dwzg5" target="_blank" rel="noopener noreferrer" class="stream-link">
+                    <div class="platform-info">
+                        <i class="fa-brands fa-amazon"></i>
+                        <span>Amazon Music</span>
+                    </div>
                     <span class="action-tag">Listen</span>
+                </a>
+
+            </div>
+
+            <!-- Social Media Circular Links -->
+            <div class="socials-header">Connect With Me</div>
+            <div class="social-links">
+                <a href="https://www.youtube.com/@UnderTheory-Official" target="_blank" rel="noopener noreferrer" class="social-btn" title="YouTube">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+                <a href="https://www.instagram.com/undertheory_official/" target="_blank" rel="noopener noreferrer" class="social-btn" title="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://www.tiktok.com/@undertheory_official" target="_blank" rel="noopener noreferrer" class="social-btn" title="TikTok">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+                <a href="https://www.facebook.com/undertheoryid/" target="_blank" rel="noopener noreferrer" class="social-btn" title="Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
                 </a>
             </div>
 
-            <div class="socials-header">Connect With Me</div>
-            <div class="social-links">
-                <a href="https://www.youtube.com/@UnderTheory-Official" target="_blank" rel="noopener noreferrer" class="social-btn" data-platform="YouTube (Social)" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                <a href="https://www.instagram.com/undertheory_official/" target="_blank" rel="noopener noreferrer" class="social-btn" data-platform="Instagram" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://www.tiktok.com/@undertheory_official" target="_blank" rel="noopener noreferrer" class="social-btn" data-platform="TikTok" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-                <a href="https://www.facebook.com/undertheoryid/" target="_blank" rel="noopener noreferrer" class="social-btn" data-platform="Facebook" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-            </div>
         </div>
     </div>
 
+    <!-- JavaScript Particle Engine -->
     <script>
-        // --- SECRET SHORTCUT: 5x CLICK PROFILE IMAGE ---
-        let clickCount = 0;
-        let clickTimer = null;
-        const secretTrigger = document.getElementById('secretTrigger');
-
-        secretTrigger.addEventListener('click', () => {
-            clickCount++;
-            
-            // Reset timer jika jeda antar klik terlalu lama (> 800ms)
-            clearTimeout(clickTimer);
-            clickTimer = setTimeout(() => {
-                clickCount = 0;
-            }, 800);
-
-            // Jika berhasil diklik 5 kali dalam rentang waktu tersebut
-            if (clickCount === 5) {
-                clickCount = 0;
-                // Efek visual kecil (berkedip terang)
-                secretTrigger.style.filter = "drop-shadow(0 0 15px #4ade80)";
-                setTimeout(() => {
-                    secretTrigger.style.filter = "none";
-                    // Buka halaman dashboard di tab baru
-                    window.open('dashboard.html', '_blank');
-                }, 300);
-            }
-        });
-
-        // --- REAL-TIME TRACKING LOGGER ---
-        const allInteractiveLinks = document.querySelectorAll('.stream-link, .social-btn');
-
-        allInteractiveLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                const platformName = this.getAttribute('data-platform');
-                let analyticsLogs = JSON.parse(localStorage.getItem('ut_analytics_logs')) || [];
-                
-                let newLog = {
-                    time: new Date().toLocaleTimeString(),
-                    platform: platformName,
-                    region: "Indonesia (ID)",
-                    device: /Mobi|Android/i.test(navigator.userAgent) ? "Mobile" : "Desktop",
-                    status: "200 OK (Redirect)"
-                };
-
-                analyticsLogs.unshift(newLog);
-                if (analyticsLogs.length > 50) analyticsLogs.pop();
-
-                localStorage.setItem('ut_analytics_logs', JSON.stringify(analyticsLogs));
-                
-                let totalClicks = parseInt(localStorage.getItem('ut_total_clicks') || '1420') + 1;
-                localStorage.setItem('ut_total_clicks', totalClicks);
-            });
-        });
-
-        // --- PARTICLE BACKGROUND ---
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
+
         let width, height, particles;
 
         function initCanvas() {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
+            
             particles = [];
+            // Adjust particle count based on screen size
             const particleCount = Math.floor((width * height) / 12000);
 
             for (let i = 0; i < particleCount; i++) {
@@ -412,19 +400,23 @@
 
         function animateParticles() {
             ctx.clearRect(0, 0, width, height);
+
             for (let i = 0; i < particles.length; i++) {
                 let p = particles[i];
                 p.x += p.vx;
                 p.y += p.vy;
 
+                // Bounce from edges
                 if (p.x < 0 || p.x > width) p.vx *= -1;
                 if (p.y < 0 || p.y > height) p.vy *= -1;
 
+                // Draw Particle
                 ctx.fillStyle = `rgba(168, 85, 247, ${p.alpha})`;
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                 ctx.fill();
 
+                // Draw connecting lines between nearby particles
                 for (let j = i + 1; j < particles.length; j++) {
                     let p2 = particles[j];
                     let dx = p.x - p2.x;
@@ -441,12 +433,17 @@
                     }
                 }
             }
+
             requestAnimationFrame(animateParticles);
         }
 
+        // Initialize and handle window resize
         initCanvas();
         animateParticles();
-        window.addEventListener('resize', initCanvas);
+
+        window.addEventListener('resize', () => {
+            initCanvas();
+        });
     </script>
 </body>
 </html>
